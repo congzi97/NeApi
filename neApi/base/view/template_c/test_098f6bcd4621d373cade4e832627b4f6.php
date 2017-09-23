@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title><?php echo NeApi\WebController::$vars['title'];?></title>
+    <!-- 先引入 Vue -->
+    <script type="text/javascript" src="/static/dist/vue.js"></script>
+    <link href="/static/dist/styles/iview.css" rel="stylesheet" type="text/css">
+    <script src="/static/dist/iview.min.js"></script>
+    <script src="/static/js/jquery-3.2.1.min.js"></script>
+    <script src="/static/js/jsencrypt.js"></script>
+    <script src="/static/js/function.js"></script>
+    <script src="/static/js/crypt.js"></script>
+</head>
+<body>
+
+
+<div id="app" class="index">
+    <div class="layout" :class="{'layout-hide-text': spanLeft < 5}">
+        <Row type="flex">
+            <i-col :span="spanLeft" class="layout-menu-left">
+                <i-menu active-name="1" theme="dark" width="auto">
+                    <div class="layout-logo-left">
+                        <div class="layout-left-title">
+                            <a href="/" style="display: inline-block;width: 100%;height: 100%;">NEApi PHP FrameWork</a>
+                        </div>
+                    </div>
+                    <Collapse accordion v-for="item,key in leftList" v-model="leftCollapse[key]" >
+                        <Panel :name="''+leftCollapse[key]+''">
+                            {{item.title}}
+                            <ul class="collapse-list" slot="content">
+                                <li v-for="li_item in item.list">
+                                    <a :href="'/index/'+li_item.href">
+                                        <span>{{li_item.text}}</span>
+                                        <Icon type="chevron-right"></Icon>
+                                    </a>
+                                </li>
+                            </ul>
+                        </Panel>
+                    </Collapse>
+                </i-menu>
+            </i-col>
+            <i-col :span="spanRight">
+                <div class="layout-header">
+                    <i-menu mode="horizontal" theme="dark" active-name="1">
+                        <div style="float: left;width: 10%;">
+                            <i-button type="text"  @click="toggleClick" style="color: #fff;">
+                                <Icon type="navicon" size="32"></Icon>
+                            </i-button>
+                        </div>
+                        <div style="float:left;width: 60%;text-align: center;color:#fff;font-size: 1.2rem;line-height: 60px;">
+                            测试
+                        </div>
+                        <div class="layout-nav" style="float: right;width: 30%;">
+                            <menu-item name="1">
+                                <Icon type="person-stalker" style="font-size: 1.5rem;float: left;padding-top: 18px;"></Icon>
+                                <span>交流</span>
+                            </menu-item>
+                            <menu-item name="2">
+                                <Icon type="social-github" style="font-size: 2rem;float: left;padding-top: 13px;"></Icon>
+                                开源
+                            </menu-item>
+                            <submenu name="3">
+                                <template slot="title">更多</template>
+                                <menu-group title="使用">
+                                    <menu-item name="3-1">更多内容</menu-item>
+                                </menu-group>
+                                <menu-group title="哈哈">
+                                    <menu-item name="3-4">更多内容</menu-item>
+                                </menu-group>
+                            </submenu>
+                        </div>
+                    </i-menu>
+                </div>
+                <div class="layout-breadcrumb">
+                    <breadcrumb>
+                        <Breadcrumb-item href="#">首页</Breadcrumb-item>
+                        <Breadcrumb-item
+                                v-for="item in breadcrumb"
+                                href=" 'undefined' === typeof item.href ||  '' === item.href ? '#' : item.href "
+                                v-html="item.text">
+                        </Breadcrumb-item>
+                    </breadcrumb>
+                </div>
+                <div class="layout-content">
+                    <div class="layout-content-main">
+                        <?php echo NeApi\WebController::$vars['content'];?>
+                    </div>
+                </div>
+                <div class="layout-copy">
+                    2017 &copy; NeApi PHP API FRAMEWORK
+                </div>
+            </i-col>
+        </Row>
+    </div>
+</div>
+<script>
+    var _vm =  new Vue({
+        el :'#app',
+        data : {
+            transitionName:'',
+            leftCollapse:['1','2','3','4','5'],
+            spanLeft: 5,
+            spanRight: 19,
+            breadcrumb:[],
+            leftList:[
+                {'title':'公共组件','list':[
+                    {'text':'数组操作','href':'read/1/1','action':[
+                        {'name':'Action toParams','text':'数组转字符串.格式:key=value&key2=value2'},
+                        {'name':'Action toArray','text':'字符串转数组.格式:array[key]=value'},
+                        {'name':'Action TDSort','text':'根据某个值排序'},
+                        {'name':'Action remove','text':'直接删除数组方法'},
+                        {'name':'Action removeAll','text':'重装数组方法'},
+                    ]},
+                    {'text':'数据检查','href':'read/1/2'},
+                    {'text':'颜色处理','href':'read/1/3'},
+                    {'text':'加密数据','href':'read/1/4'},
+                    {'text':'获取数据','href':'read/1/5'},
+                    {'text':'日志操作','href':'read/1/6'},
+                    {'text':'时间操作','href':'read/1/7'},
+                    {'text':'XML操作','href':'read/1/8'},
+                    {'text':'XXS操作','href':'read/1/9'},
+                ]},
+                {'title':'缓存组件','list':[
+                    {'text':'Redis缓存','href':'read_2_1'},
+                    {'text':'Memcached缓存','href':'read_2_2'},
+                ]},
+                {'title':'数据库组件','list':[
+                    {'text':'MySQL PDO','href':'read_3_1'},
+                ]},
+                {'title':'文件组件','list':[
+                    {'text':'文件基本操作','href':'read_4_1'},
+                ]},
+                {'title':'HTTP资源请求组件','list':[
+                    {'text':'Request','href':'read_5_1'},
+                    {'text':'Session','href':'read_5_2'},
+                    {'text':'Sign','href':'read_5_3'},
+                    {'text':'URL','href':'read_5_4'},
+                ]},
+                {'title':'图片处理','list':[
+                    {'text':'验证码','href':'/read_6_1'},
+                    {'text':'基本处理','href':'/read_6_2'},
+                ]},
+            ]
+        },
+        computed: {
+            iconSize :function() {
+                return this.spanLeft === 5 ? 14 : 24;
+            }
+        },
+        created:function(){
+            this.$Loading.config({
+                color: '#44CC00',
+                failedColor: '#ff0000'
+            });
+            this.$Loading.start();
+        },
+        mounted : function(){
+            this.$Loading.finish();
+        },
+        methods: {
+            toggleClick :function() {
+                if (this.spanLeft === 5) {
+                    this.spanLeft = 2;
+                    this.spanRight = 22;
+                } else {
+                    this.spanLeft = 5;
+                    this.spanRight = 19;
+                }
+            }
+        }
+    })
+</script>
+<style>
+    .index .ivu-collapse-content-box {padding-top: 0px;padding-bottom: 8px;}
+    .index .ivu-collapse-content {padding: 0;}
+    ul.collapse-list {position: relative;}
+    ul.collapse-list li {height: 40px;line-height: 40px;border-bottom: 1px solid #efefef;padding: 0 10px;}
+    ul.collapse-list li span {float: left;}
+    ul.collapse-list li i {float: right;font-size: 15px;padding-top: 13px;}
+    ul.collapse-list li a{display: inline-block;width: 100%;height: 100%;}
+    .index-tip {margin-top: 30%;width: 100%;text-align: center;font-size: 1.3rem;}
+    .child-view {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transition: all .5s cubic-bezier(.55,0,.1,1);
+    }
+    .slide-left-enter, .slide-right-leave-active {
+        opacity: 0;
+        -webkit-transform: translate(30px, 0);
+        transform: translate(30px, 0);
+    }
+    .slide-left-leave-active, .slide-right-enter {
+        opacity: 0;
+        -webkit-transform: translate(-30px, 0);
+        transform: translate(-30px, 0);
+    }
+
+    .layout-left-title {text-align: center;font-size: 1.2rem;color: #fff;}
+    .layout{
+        border: 1px solid #d7dde4;
+        background: #f5f7f9;
+        position: relative;
+        border-radius: 4px;
+        overflow: hidden;
+    }
+    .layout-breadcrumb{
+        padding: 10px 15px 0;
+    }
+    .layout-content{
+        height: 780px;
+        margin: 15px 2%;width: 96%;
+        overflow: auto;
+        background: #fff;
+        border-radius: 4px;position: relative;
+    }
+    .layout-content-main{
+        padding: 10px;position: relative;
+    }
+    .layout-copy{
+        text-align: center;
+        padding: 10px 0 20px;
+        color: #9ea7b4;
+    }
+    .layout-menu-left{
+        background: #464c5b;
+    }
+    .layout-header{
+        height: 60px;
+        background: #fff;
+        box-shadow: 0 1px 1px rgba(0,0,0,.1);
+    }
+    .layout-logo-left{
+        width: 90%;
+        height: 30px;
+        background: #5b6270;
+        border-radius: 3px;
+        margin: 15px auto;
+    }
+    .layout-ceiling-main a{
+        color: #9ba7b5;
+    }
+    .layout-hide-text .layout-text{
+        display: none;
+    }
+    .ivu-col{
+        transition: width .2s ease-in-out;
+    }
+</style>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "npApi/npApi1",
+  "description": "npApi PHP API Framework Version 1",
+  "keywords": [
+    "npApi",
+    "API framework"
+  ],
+  "autoload": {
+    "psr-4": {
+      "NeApi\\": "neApi/core/",
+      "NComponent\\Common\\": "neApi/component/common/",
+      "NComponent\\Http\\": "neApi/component/http/",
+      "NComponent\\Db\\": "neApi/component/db/",
+      "NComponent\\Image\\": "neApi/component/image/",
+      "NComponent\\File\\": "neApi/component/file/",
+      "NComponent\\Cache\\": "neApi/component/cache/",
+      "NComponent\\Email\\": "neApi/component/email/",
+      "BaseApp\\Controller\\": "neApi/base/controller/",
+      "BaseApp\\Model\\": "neApi/base/model/",
+      "app\\Controller\\": "application/controller/",
+      "app\\Model\\": "application/model/",
+      "Custom\\": "custom/"
+    }
+  },
+  "require": {
+    "php": ">=5.6.30",
+    "filp/whoops":"*"
+  },
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "https://packagist.phpcomposer.com"
+    }
+  }
+}
