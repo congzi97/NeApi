@@ -5,6 +5,12 @@
     "npApi",
     "API framework"
   ],
+  "authors": [
+       {
+            "name": "notexpired",
+            "email": "notexpired@163.com"
+       }
+  ],
   "autoload": {
     "psr-4": {
       "NeApi\\": "neApi/core/",
@@ -24,7 +30,8 @@
   },
   "require": {
     "php": ">=5.6.30",
-    "filp/whoops":"*"
+    "filp/whoops":"*",
+    "notexpired/neapi":"1.0" //这里的版本根据实际需要修改
   },
   "repositories": {
     "packagist": {
