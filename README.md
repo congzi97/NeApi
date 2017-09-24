@@ -12,3 +12,6 @@
 
 克隆本项目到本地，然后执行 composer install 
 
+<br /><br />
+
+<a href="http://api.czphp.cn/public/">详情请到http://api.czphp.cn了解</a>
