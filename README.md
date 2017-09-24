@@ -14,4 +14,4 @@
 
 <br /><br />
 
-<a href="http://api.czphp.cn/public/">详情请到http://api.czphp.cn了解</a>
+<a href="http://api.czphp.cn/public/">去官网了解</a>
